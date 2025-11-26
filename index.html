@@ -37,6 +37,7 @@
       overflow:hidden;
     }
 
+    /* 彩帶線條 */
     .bg-line{
       position:fixed;width:2px;height:160vh;
       background:linear-gradient(to bottom,#fed7aa,#fdba74,#fb7185);
@@ -53,28 +54,41 @@
       100%{transform:translateY(0) rotate(10deg);}
     }
 
+    /* 超多氣球層 */
+    #balloonLayer{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+    }
+
     .balloon{
-      position:fixed;width:70px;height:90px;border-radius:50% 50% 48% 52%;
+      position:absolute;
+      width:70px;
+      height:90px;
+      border-radius:50% 50% 48% 52%;
       background:
         radial-gradient(circle at 30% 20%,#fff,rgba(255,255,255,0)40%),
         linear-gradient(135deg,#fdba74,#fb7185);
       box-shadow:0 18px 40px rgba(120,53,15,.45);
-      opacity:.78;animation:floatUp 20s linear infinite;
-      pointer-events:none;z-index:0;
+      opacity:.78;
+      animation:floatUp 20s linear infinite;
     }
     .balloon::after{
-      content:"";position:absolute;left:50%;top:90px;width:2px;height:80px;
-      background:rgba(120,53,15,.45);transform:translateX(-50%);
+      content:"";
+      position:absolute;
+      left:50%;
+      top:90px;
+      width:2px;
+      height:80px;
+      background:rgba(120,53,15,.45);
+      transform:translateX(-50%);
     }
-    .balloon:nth-child(4){left:10%;animation-delay:0s;}
-    .balloon:nth-child(5){left:32%;animation-delay:5s;}
-    .balloon:nth-child(6){left:66%;animation-delay:9s;}
-    .balloon:nth-child(7){left:88%;animation-delay:13s;}
 
     @keyframes floatUp{
-      0%{top:110%;transform:translateY(0) scale(1);}
+      0%{transform:translateY(0) scale(1);}
       60%{transform:translateY(-18px) scale(1.04);}
-      100%{top:-30%;transform:translateY(-60px) scale(1);}
+      100%{transform:translateY(-120vh) scale(1);}
     }
 
     .wrapper{position:relative;z-index:1;max-width:520px;width:100%;}
@@ -101,7 +115,7 @@
 
     .card-inner{position:relative;z-index:1;}
 
-    /* 右上角淡淡羽球 emoji 取代畫出來的球拍 */
+    /* 柔和羽球 emoji */
     .badminton-emoji{
       position:absolute;
       right:20px;
@@ -163,7 +177,6 @@
       gap:6px;
       color:#7c2d12;
     }
-    .badminton-tag span.icon{font-size:13px;}
 
     .divider{
       height:1px;
@@ -237,9 +250,11 @@
   </style>
 </head>
 <body>
-  <!-- 背景 -->
+  <!-- 背景：彩帶 -->
   <div class="bg-line"></div><div class="bg-line"></div><div class="bg-line"></div>
-  <div class="balloon"></div><div class="balloon"></div><div class="balloon"></div><div class="balloon"></div>
+
+  <!-- 背景：超多氣球會插在這裡 -->
+  <div id="balloonLayer"></div>
 
   <div class="wrapper">
     <div class="card">
@@ -259,15 +274,9 @@
 
         <!-- 羽球 2+1 狀態列 -->
         <div class="badminton-tags">
-          <div class="badminton-tag">
-            <span>帥氣進攻</span>
-          </div>
-          <div class="badminton-tag">
-            <span>優雅走位</span>
-          </div>
-          <div class="badminton-tag">
-            <span>穩穩控場</span>
-          </div>
+          <div class="badminton-tag"><span>帥氣進攻</span></div>
+          <div class="badminton-tag"><span>優雅走位</span></div>
+          <div class="badminton-tag"><span>穩穩控場</span></div>
         </div>
 
         <p class="subtitle">
@@ -281,7 +290,7 @@
             球技高到隊友開始懷疑你偷練，<br>
             事業順到連老闆看到你都會微笑，<br>
             每天開心到像被太陽充電。<br><br>
-            球場上是帥氣進攻，生活中是優雅走位，<br>
+            球場上是帥氣進攻，生活中是優雅走位。<br>
           </strong>
         </p>
 
@@ -327,6 +336,7 @@
   <script>
     const celebrateBtn = document.getElementById('celebrateBtn');
     const audioEl = document.getElementById('birthdayAudio');
+    const balloonLayer = document.getElementById('balloonLayer');
 
     function playBirthdaySong(){
       if(!audioEl) return;
@@ -334,6 +344,39 @@
       audioEl.play().catch(()=>{});
     }
 
+    /* 產生很多氣球 */
+    function createBalloons(count){
+      const colors = [
+        'linear-gradient(135deg,#fed7aa,#fb923c)',
+        'linear-gradient(135deg,#fecaca,#fb7185)',
+        'linear-gradient(135deg,#fef3c7,#facc15)'
+      ];
+
+      for(let i=0;i<count;i++){
+        const b = document.createElement('div');
+        b.className = 'balloon';
+
+        const left = Math.random() * 100;          // 0~100 vw
+        const delay = Math.random() * 20;          // 0~20 s
+        const duration = 18 + Math.random()*12;    // 18~30 s
+        const scale = 0.7 + Math.random()*0.8;     // 0.7~1.5
+
+        b.style.left = left + 'vw';
+        b.style.bottom = '-120px';                 // 從底部飄上來
+        b.style.animationDelay = delay + 's';
+        b.style.animationDuration = duration + 's';
+        b.style.transform = 'scale('+scale+')';
+        b.style.background =
+          'radial-gradient(circle at 30% 20%,#fff,rgba(255,255,255,0)40%),' +
+          colors[Math.floor(Math.random()*colors.length)];
+
+        balloonLayer.appendChild(b);
+      }
+    }
+
+    createBalloons(18); // 想再更誇張就把數字改大，例如 24、30
+
+    /* confetti */
     function fireConfetti(){
       const confettiCount = 80;
       const duration = 1400;
