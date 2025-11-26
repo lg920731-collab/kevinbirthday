@@ -308,13 +308,39 @@
     .copyright a{color:#e5e7eb;text-decoration:underline;}
 
     @media(max-width:480px){
-      .wrapper{max-width:100%;}
-      .court-bg{inset:-18px -10px;}
-      .card{padding:22px 18px 18px;}
-      .actions{flex-direction:column;align-items:flex-start;}
-      .sign{margin-top:6px;}
-      .badminton-deco{right:-40px;top:-26px;opacity:0.35;transform:scale(.9) rotate(18deg);}
-    }
+  body{
+    align-items:flex-start;   /* 從置中改成往上排，下面可以滑動 */
+    padding:14px 10px;
+    overflow:auto;            /* 手機允許捲動內容，避免被吃掉 */
+  }
+
+  .card{
+    padding:20px 16px 18px;
+  }
+
+  .actions{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .sign{
+    margin-top:6px;
+  }
+
+  /* 手機時把羽球裝飾縮小＋往內收一點，避免太擠 */
+  .badminton-deco{
+    transform:scale(.78) rotate(18deg);
+    right:-26px;
+    top:-30px;
+  }
+
+  /* 可以讓氣球不要太多（如果覺得太亂，可以直接 display:none） */
+  .balloon:nth-child(4),
+  .balloon:nth-child(7){
+    opacity:0.6;
+  }
+}
+
   </style>
 </head>
 <body>
