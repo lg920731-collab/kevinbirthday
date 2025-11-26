@@ -41,7 +41,6 @@
       overflow: hidden;
     }
 
-    /* 背景彩帶線條 */
     .bg-line {
       position: fixed;
       width: 2px;
@@ -64,7 +63,6 @@
       100% { transform: translateY(0)   rotate(10deg); }
     }
 
-    /* 背景氣球 */
     .balloon {
       position: fixed;
       width: 70px;
@@ -253,7 +251,6 @@
       opacity: 0.9;
     }
 
-    /* confetti */
     .confetti-piece {
       position: fixed;
       width: 7px;
@@ -294,6 +291,7 @@
     }
   </style>
 </head>
+
 <body>
   <!-- 背景裝飾：彩帶 + 氣球 -->
   <div class="bg-line"></div>
@@ -312,9 +310,7 @@
           <span>Happy Birthday • 生日快樂</span>
         </div>
 
-        <h1>
-          <span class="emphasis">Kevin</span>，生日快樂 🎉
-        </h1>
+        <h1><span class="emphasis">Kevin</span>，生日快樂 🎉</h1>
 
         <p class="subtitle">
           Wishing you a year filled with good health, new adventures, and all the things that make you smile.
@@ -333,70 +329,31 @@
           謝謝你一直都這麼棒，也希望你能好好被這個世界溫柔對待。🎂
         </p>
 
-        <p class="sign">
-          From  
-          <span>your friend&nbsp;– Benjamin</span>
-        </p>
+        <p class="sign">From <span>your friend-Benjamin</span></p>
 
         <div class="actions">
           <button class="btn-main" id="celebrateBtn">
             <span class="icon">✨</span>
             <span>幫 Kevin 放煙花 & 播生日歌</span>
           </button>
-          <span class="hint">
-            小提示：你可以把這個網頁網址傳給 Kevin，當成生日卡片 🎁
-          </span>
+          <span class="hint">你可以把這個網頁網址傳給 Kevin，當成生日卡片 🎁</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 不再需要 mp3 檔，改用 Web Audio 播一小段生日旋律 -->
+  <!-- 使用你的自訂 happy-birthday.mp3 -->
+  <audio id="birthdayAudio">
+    <source src="happy-birthday.mp3" type="audio/mpeg" />
+  </audio>
 
   <script>
     const celebrateBtn = document.getElementById('celebrateBtn');
-    let audioCtx = null;
+    const audioEl = document.getElementById('birthdayAudio');
 
     function playBirthdaySong() {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) {
-        console.log('此瀏覽器不支援 Web Audio');
-        return;
-      }
-
-      if (!audioCtx) {
-        audioCtx = new AudioContext();
-      }
-
-      const now = audioCtx.currentTime;
-      const tempo = 0.32; // 每個音長度（秒）
-
-      // 簡單「生日快樂」旋律（C 大調）
-      const notes = [
-        262, 262, 294, 262, 349, 330,   // happy birthday to you
-        262, 262, 294, 262, 392, 349,   // happy birthday to you
-        262, 262, 523, 440, 349, 330, 294, // happy birthday dear Kevin
-        466, 466, 440, 349, 392, 349    // happy birthday to you
-      ];
-
-      notes.forEach((freq, i) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.value = freq;
-
-        const t0 = now + i * tempo;
-        const t1 = t0 + tempo * 0.9;
-
-        gain.gain.setValueAtTime(0, t0);
-        gain.gain.linearRampToValueAtTime(0.4, t0 + 0.03);
-        gain.gain.linearRampToValueAtTime(0.0, t1);
-
-        osc.connect(gain).connect(audioCtx.destination);
-        osc.start(t0);
-        osc.stop(t1 + 0.02);
-      });
+      audioEl.currentTime = 0;
+      audioEl.play().catch(() => {});
     }
 
     function fireConfetti() {
@@ -420,9 +377,7 @@
 
         document.body.appendChild(piece);
 
-        setTimeout(() => {
-          piece.remove();
-        }, duration + delay * 1000);
+        setTimeout(() => piece.remove(), duration + delay * 1000);
       }
     }
 
