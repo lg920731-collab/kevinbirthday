@@ -7,16 +7,16 @@
 
   <style>
     :root {
-      /* 換成夜場球館 + 霓虹感，帥氣一點 */
-      --bg1: #020617;
-      --bg2: #0b1120;
-      --card-bg: rgba(15, 23, 42, 0.9);
-      --card-border: rgba(148, 163, 184, 0.6);
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --accent: #22c55e;
-      --accent-soft: rgba(34, 197, 94, 0.12);
-      --shadow-soft: 0 26px 70px rgba(0, 0, 0, 0.9);
+      /* 暖橘生日卡配色 */
+      --bg1: #ffe4c4;
+      --bg2: #fcb4a6;
+      --card-bg: #fff8f2;
+      --card-border: rgba(255, 255, 255, 0.9);
+      --text-main: #3b2f2a;
+      --text-soft: #8b5e46;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.12);
+      --shadow-soft: 0 16px 40px rgba(120, 53, 15, 0.35);
       --radius-xl: 24px;
     }
 
@@ -25,25 +25,27 @@
     body{
       min-height:100vh;
       font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      display:flex;align-items:center;justify-content:center;
-      padding:16px;color:var(--text-main);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      color:var(--text-main);
       background:
-        radial-gradient(circle at top left, rgba(56,189,248,0.18), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(34,197,94,0.18), transparent 55%),
-        radial-gradient(circle at center, rgba(15,23,42,0.9), #020617);
+        radial-gradient(circle at top left, rgba(255,255,255,0.6), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(255,255,255,0.5), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
       overflow:hidden;
     }
 
-    /* 後面幾條光線保留，當成光束 */
     .bg-line{
       position:fixed;width:2px;height:160vh;
-      background:linear-gradient(to bottom,#22c55e,#22d3ee,#a855f7);
-      opacity:.3;filter:blur(.3px);transform:rotate(10deg);
+      background:linear-gradient(to bottom,#fed7aa,#fdba74,#fb7185);
+      opacity:.28;filter:blur(.4px);transform:rotate(10deg);
       top:-20vh;pointer-events:none;z-index:0;
     }
-    .bg-line:nth-child(1){left:12%;animation:floatLine 13s linear infinite;}
-    .bg-line:nth-child(2){left:50%;animation:floatLine 18s linear infinite reverse;}
-    .bg-line:nth-child(3){left:82%;animation:floatLine 16s linear infinite;}
+    .bg-line:nth-child(1){left:15%;animation:floatLine 18s linear infinite;}
+    .bg-line:nth-child(2){left:52%;animation:floatLine 22s linear infinite reverse;}
+    .bg-line:nth-child(3){left:84%;animation:floatLine 20s linear infinite;}
 
     @keyframes floatLine{
       0%{transform:translateY(0) rotate(10deg);}
@@ -51,149 +53,149 @@
       100%{transform:translateY(0) rotate(10deg);}
     }
 
-    /* 上方幾顆氣球 = 慶生感，顏色調暗一點 */
     .balloon{
       position:fixed;width:70px;height:90px;border-radius:50% 50% 48% 52%;
-      background:radial-gradient(circle at 30% 20%,#f9fafb,rgba(15,23,42,0.2)40%),
-                 linear-gradient(135deg,#22c55e,#22d3ee);
-      box-shadow:0 18px 40px rgba(0,0,0,.6);
-      opacity:.75;animation:floatUp 18s linear infinite;
+      background:
+        radial-gradient(circle at 30% 20%,#fff,rgba(255,255,255,0)40%),
+        linear-gradient(135deg,#fdba74,#fb7185);
+      box-shadow:0 18px 40px rgba(120,53,15,.45);
+      opacity:.78;animation:floatUp 20s linear infinite;
       pointer-events:none;z-index:0;
     }
     .balloon::after{
       content:"";position:absolute;left:50%;top:90px;width:2px;height:80px;
-      background:rgba(148,163,184,.7);transform:translateX(-50%);
+      background:rgba(120,53,15,.45);transform:translateX(-50%);
     }
-    .balloon:nth-child(4){left:8%;animation-delay:0s;}
-    .balloon:nth-child(5){left:30%;animation-delay:4s;}
-    .balloon:nth-child(6){left:65%;animation-delay:9s;}
+    .balloon:nth-child(4){left:10%;animation-delay:0s;}
+    .balloon:nth-child(5){left:32%;animation-delay:5s;}
+    .balloon:nth-child(6){left:66%;animation-delay:9s;}
     .balloon:nth-child(7){left:88%;animation-delay:13s;}
 
     @keyframes floatUp{
       0%{top:110%;transform:translateY(0) scale(1);}
-      60%{transform:translateY(-20px) scale(1.04);}
+      60%{transform:translateY(-18px) scale(1.04);}
       100%{top:-30%;transform:translateY(-60px) scale(1);}
     }
 
-    .wrapper{
-      position:relative;z-index:1;max-width:540px;width:100%;
-    }
-
-    /* 背後整塊羽球場（夜光線） */
-    .court-bg{
-      position:absolute;
-      inset:-32px -26px;
-      border-radius:32px;
-      border:1px solid rgba(148,163,184,0.5);
-      background:
-        radial-gradient(circle at top, rgba(34,197,94,0.06), transparent 60%),
-        radial-gradient(circle at bottom, rgba(56,189,248,0.08), transparent 55%),
-        linear-gradient(135deg,rgba(15,23,42,0.95),rgba(15,23,42,0.98));
-      box-shadow:
-        0 0 0 1px rgba(15,23,42,0.9),
-        0 30px 80px rgba(0,0,0,0.9);
-      z-index:0;
-      overflow:hidden;
-    }
-    .court-bg::before,
-    .court-bg::after{
-      content:"";
-      position:absolute;
-      inset:18px 26px;
-      border-radius:22px;
-      border:1px solid rgba(148,163,184,0.4);
-      box-shadow:0 0 18px rgba(34,197,94,0.4);
-    }
-    .court-bg::after{
-      inset:18px calc(26px + 50%);
-      border-left:1px solid rgba(56,189,248,0.8);
-      border-right:none;
-      border-top:none;
-      border-bottom:none;
-      box-shadow:none;
-    }
+    .wrapper{position:relative;z-index:1;max-width:520px;width:100%;}
 
     .card{
-      position:relative;padding:28px 24px 24px;
-      background:var(--card-bg);border-radius:var(--radius-xl);
+      position:relative;
+      padding:26px 22px 22px;
+      background:var(--card-bg);
+      border-radius:var(--radius-xl);
       border:1px solid var(--card-border);
-      box-shadow:var(--shadow-soft);backdrop-filter:blur(24px);
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(20px);
       overflow:hidden;
     }
 
     .card::before{
       content:"";position:absolute;inset:0;
-      background:radial-gradient(circle at top right,rgba(34,197,94,0.25),transparent 52%),
-                 radial-gradient(circle at bottom left,rgba(56,189,248,0.25),transparent 55%);
+      background:radial-gradient(circle at 0 0,rgba(254,215,170,.9),transparent 55%),
+                 radial-gradient(circle at 100% 0,rgba(251,113,133,.75),transparent 60%);
       opacity:.9;
       pointer-events:none;
+      mix-blend-mode:soft-light;
     }
 
     .card-inner{position:relative;z-index:1;}
 
+    /* 右上角淡淡羽球 emoji 取代畫出來的球拍 */
+    .badminton-emoji{
+      position:absolute;
+      right:20px;
+      top:16px;
+      font-size:46px;
+      opacity:0.18;
+      pointer-events:none;
+    }
+
     .chip{
       display:inline-flex;align-items:center;gap:8px;
-      background:var(--accent-soft);color:var(--accent);
+      background:rgba(255,255,255,.8);
+      color:var(--accent);
       border-radius:999px;padding:4px 12px;font-size:11px;
-      letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px;
+      letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;
+      box-shadow:0 6px 18px rgba(248,171,105,.5);
     }
 
     .chip-dot{
       width:6px;height:6px;border-radius:999px;background:var(--accent);
-      box-shadow:0 0 0 4px rgba(34,197,94,.22);
+      box-shadow:0 0 0 4px rgba(249,115,22,.25);
     }
 
     h1{
-      font-size:clamp(2.1rem,6vw,2.7rem);
-      line-height:1.1;margin-bottom:10px;letter-spacing:.08em;
+      font-size:clamp(2rem,6vw,2.4rem);
+      line-height:1.15;margin-bottom:10px;letter-spacing:.03em;
     }
 
     h1 span.emphasis{
-      background:linear-gradient(135deg,#22c55e,#22d3ee,#a855f7);
+      background:linear-gradient(135deg,#ea580c,#f97316,#facc15);
       -webkit-background-clip:text;background-clip:text;color:transparent;
     }
 
-    .subtitle{font-size:15px;color:var(--text-soft);margin-bottom:14px;}
+    .subtitle{font-size:15px;color:var(--text-soft);margin-bottom:18px;}
     .subtitle-zh{font-size:14px;color:var(--text-soft);margin-bottom:18px;}
 
     .age-text{
-      margin-top:6px;
-      font-size:15px;
+      margin-top:4px;
+      font-size:14px;
       font-weight:600;
-      color:#38bdf8;
+      color:#ea580c;
     }
+
+    .badminton-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-bottom:12px;
+      margin-top:6px;
+      font-size:11px;
+    }
+    .badminton-tag{
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(248,171,105,.8);
+      background:rgba(255,255,255,.8);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      color:#7c2d12;
+    }
+    .badminton-tag span.icon{font-size:13px;}
 
     .divider{
       height:1px;
-      background:linear-gradient(to right,transparent,rgba(148,163,184,.9),transparent);
-      margin:10px 0 18px;
+      background:linear-gradient(to right,transparent,rgba(248,171,105,.9),transparent);
+      margin:12px 0 16px;
     }
 
     .wish{font-size:14px;line-height:1.7;color:var(--text-main);margin-bottom:18px;}
 
     .sign{text-align:right;font-size:13px;color:var(--text-soft);}
-    .sign span{font-weight:500;color:#e5e7eb;}
+    .sign span{font-weight:600;}
 
     .actions{
-      display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;
       align-items:center;justify-content:space-between;
     }
 
     .btn-main{
       border:none;cursor:pointer;padding:10px 18px;border-radius:999px;
       font-size:14px;font-weight:600;display:inline-flex;gap:8px;align-items:center;
-      background:radial-gradient(circle at 0 0,#facc15,#f97316);
-      color:#111827;box-shadow:0 14px 30px rgba(0,0,0,.8);
+      background:linear-gradient(135deg,#fed7aa,#fb923c);
+      color:#7c2d12;box-shadow:0 14px 30px rgba(124,45,18,.4);
       transition:.15s;
     }
     .btn-main:hover{
       transform:translateY(-2px);
-      box-shadow:0 20px 50px rgba(0,0,0,.95);
+      box-shadow:0 18px 40px rgba(124,45,18,.55);
     }
 
     .hint{font-size:11px;color:var(--text-soft);opacity:.9;}
 
-    /* confetti（讓煙花看得到） */
+    /* confetti */
     .confetti-piece{
       position:fixed;
       width:7px;height:14px;
@@ -216,155 +218,39 @@
       }
     }
 
-    /* 羽球裝飾：帥氣又優雅的拍 + 球（變亮、存在感更強） */
-    .badminton-deco{
-      position:absolute;
-      right:-24px;
-      top:-10px;
-      width:170px;
-      height:170px;
-      opacity:0.45;
-      transform:rotate(16deg);
-      pointer-events:none;
-      z-index:0;
-      filter:drop-shadow(0 0 14px rgba(34,197,94,0.85));
-    }
-    .badminton-deco .racket-head{
-      position:absolute;
-      width:110px;height:130px;
-      border-radius:50% 50% 48% 52%;
-      border:3px solid rgba(56,189,248,0.95);
-      box-shadow:
-        0 0 12px rgba(56,189,248,0.9),
-        0 0 24px rgba(34,197,94,0.45);
-      background:
-        radial-gradient(circle at 30% 18%,rgba(15,23,42,0.3),transparent 48%),
-        repeating-linear-gradient(90deg,rgba(148,163,184,0.5) 0,rgba(148,163,184,0.5) 1px,transparent 1px,transparent 6px),
-        repeating-linear-gradient(0deg,rgba(148,163,184,0.45) 0,rgba(148,163,184,0.45) 1px,transparent 1px,transparent 6px);
-      top:6px;left:26px;
-    }
-    .badminton-deco .racket-handle{
-      position:absolute;
-      width:14px;height:80px;
-      background:linear-gradient(to bottom,#020617,#0f172a);
-      border-radius:999px;
-      left:60px;top:108px;
-      box-shadow:0 0 8px rgba(15,23,42,0.8);
-    }
-    .badminton-deco .racket-handle::after{
-      content:"";
-      position:absolute;
-      inset:4px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.7);
-    }
-    .badminton-deco .shuttle{
-      position:absolute;
-      width:38px;height:38px;
-      border-radius:50%;
-      background:radial-gradient(circle at 30% 20%,#f9fafb,rgba(148,163,184,0.3));
-      box-shadow:0 10px 25px rgba(0,0,0,.9);
-      left:100px;top:72px;
-    }
-    .badminton-deco .shuttle::after{
-      content:"";
-      position:absolute;
-      left:4px;right:4px;bottom:-7px;height:11px;
-      border-radius:999px;
-      background:linear-gradient(to right,#e5e7eb,#22c55e,#22d3ee);
-      box-shadow:0 0 10px rgba(34,197,94,0.7);
-    }
-
-    /* 羽球 2+1 狀態列 */
-    .badminton-tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap:6px;
-      margin-bottom:14px;
-      margin-top:4px;
-      font-size:11px;
-    }
-    .badminton-tag{
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.7);
-      background:rgba(15,23,42,.65);
-      backdrop-filter:blur(16px);
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      color:#e5e7eb;
-    }
-    .badminton-tag span.icon{font-size:13px;}
-
-    /* 右下角 Copyright */
+    /* copyright */
     .copyright{
       position:fixed;
       right:12px;bottom:10px;
-      font-size:11px;color:#9ca3af;
+      font-size:11px;color:#fff7ed;
       opacity:.9;z-index:30;
-      text-shadow:0 2px 6px rgba(0,0,0,.6);
+      text-shadow:0 2px 6px rgba(120,53,15,.5);
     }
-    .copyright a{color:#e5e7eb;text-decoration:underline;}
+    .copyright a{color:#fffbeb;text-decoration:underline;}
 
     @media(max-width:480px){
-  body{
-    align-items:flex-start;   /* 從置中改成往上排，下面可以滑動 */
-    padding:14px 10px;
-    overflow:auto;            /* 手機允許捲動內容，避免被吃掉 */
-  }
-
-  .card{
-    padding:20px 16px 18px;
-  }
-
-  .actions{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .sign{
-    margin-top:6px;
-  }
-
-  /* 手機時把羽球裝飾縮小＋往內收一點，避免太擠 */
-  .badminton-deco{
-    transform:scale(.78) rotate(18deg);
-    right:-26px;
-    top:-30px;
-  }
-
-  /* 可以讓氣球不要太多（如果覺得太亂，可以直接 display:none） */
-  .balloon:nth-child(4),
-  .balloon:nth-child(7){
-    opacity:0.6;
-  }
-}
-
+      body{padding:12px;}
+      .card{padding:20px 16px 18px;}
+      .actions{flex-direction:column;align-items:flex-start;}
+      .sign{margin-top:4px;}
+    }
   </style>
 </head>
 <body>
-  <!-- 背景光束 + 氣球 -->
+  <!-- 背景 -->
   <div class="bg-line"></div><div class="bg-line"></div><div class="bg-line"></div>
   <div class="balloon"></div><div class="balloon"></div><div class="balloon"></div><div class="balloon"></div>
 
   <div class="wrapper">
-    <!-- 羽球場背景 -->
-    <div class="court-bg"></div>
-
     <div class="card">
-      <!-- 羽球拍 + 羽毛球（右上很明顯） -->
-      <div class="badminton-deco">
-        <div class="racket-head"></div>
-        <div class="racket-handle"></div>
-        <div class="shuttle"></div>
-      </div>
+      <!-- 柔和羽球 emoji 裝飾 -->
+      <div class="badminton-emoji">🏸</div>
 
       <div class="card-inner">
 
         <div class="chip">
           <div class="chip-dot"></div>
-          <span>Kevin · 30th · Badminton Night</span>
+          <span>遲來的生日卡片</span>
         </div>
 
         <h1><span class="emphasis">Kevin</span>，生日快樂 🎉</h1>
@@ -374,13 +260,13 @@
         <!-- 羽球 2+1 狀態列 -->
         <div class="badminton-tags">
           <div class="badminton-tag">
-            <span class="icon">🏸</span><span>帥氣進攻 · Smash Mode ON</span>
+            <span>帥氣進攻</span>
           </div>
           <div class="badminton-tag">
-            <span class="icon">🌀</span><span>優雅走位 · Footwork Online</span>
+            <span>優雅走位</span>
           </div>
           <div class="badminton-tag">
-            <span class="icon">🎯</span><span>穩穩控場 · 2+1 完整體系</span>
+            <span>穩穩控場</span>
           </div>
         </div>
 
@@ -389,13 +275,14 @@
         </p>
 
         <p class="subtitle-zh">
-          30 歲的 Kevin，<br>
-          身體健康到可以打十場球不喊累，<br>
-          球技高到隊友開始懷疑你偷練，<br>
-          事業順到連老闆看到你都會微笑，<br>
-          每天開心到像被太陽充電。<br><br>
-          球場上是帥氣進攻，生活中是優雅走位，<br>
-          2 + 1 混合：<strong>帥氣又優雅，還超穩。</strong>
+          <strong>
+            30 歲的 Kevin，<br>
+            身體健康到可以打十場球不喊累，<br>
+            球技高到隊友開始懷疑你偷練，<br>
+            事業順到連老闆看到你都會微笑，<br>
+            每天開心到像被太陽充電。<br><br>
+            球場上是帥氣進攻，生活中是優雅走位，<br>
+          </strong>
         </p>
 
         <div class="divider"></div>
@@ -447,7 +334,6 @@
       audioEl.play().catch(()=>{});
     }
 
-    /* confetti */
     function fireConfetti(){
       const confettiCount = 80;
       const duration = 1400;
