@@ -357,8 +357,8 @@
         b.className = 'balloon';
 
         const left = Math.random() * 100;          // 0~100 vw
-        const delay = Math.random() * 20;          // 0~20 s
-        const duration = 18 + Math.random()*12;    // 18~30 s
+        const delay = Math.random() * 10;          // 0~20 s
+        const duration = 5 + Math.random()*12;    // 18~30 s
         const scale = 0.7 + Math.random()*0.8;     // 0.7~1.5
 
         b.style.left = left + 'vw';
@@ -374,7 +374,7 @@
       }
     }
 
-    createBalloons(18); // 想再更誇張就把數字改大，例如 24、30
+    createBalloons(30); // 想再更誇張就把數字改大，例如 24、30
 
     /* confetti */
     function fireConfetti(){
