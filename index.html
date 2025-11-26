@@ -147,7 +147,7 @@
 
     .btn-main{
       border:none;cursor:pointer;padding:10px 18px;border-radius:999px;
-      font-size:14px;font-weight:600;display:inline-flex;gap:8px;
+      font-size:14px;font-weight:600;display:inline-flex;gap:8px;align-items:center;
       background:radial-gradient(circle at 0 0,#facc15,#f97316);
       color:#111827;box-shadow:0 14px 30px rgba(15,23,42,.4);
       transition:.15s;
@@ -156,6 +156,102 @@
       transform:translateY(-2px);
       box-shadow:0 18px 40px rgba(15,23,42,.55);
     }
+
+    .hint{font-size:11px;color:var(--text-soft);opacity:.9;}
+
+    /* confetti（讓煙花看得到） */
+    .confetti-piece{
+      position:fixed;
+      width:7px;height:14px;
+      background:#f97316;
+      opacity:0;
+      border-radius:2px;
+      pointer-events:none;
+      z-index:2;
+      animation:confettiFall 1.4s ease-out forwards;
+    }
+    @keyframes confettiFall{
+      0%{
+        transform:translateY(-20px) rotateZ(0deg) rotateX(0deg);
+        opacity:0;
+      }
+      15%{opacity:1;}
+      100%{
+        transform:translateY(160px) rotateZ(380deg) rotateX(260deg);
+        opacity:0;
+      }
+    }
+
+    /* 羽球裝飾：帥氣又優雅的淡淡線條 */
+    .badminton-deco{
+      position:absolute;
+      right:-40px;
+      top:-40px;
+      width:140px;
+      height:140px;
+      opacity:0.15;
+      transform:rotate(18deg);
+      pointer-events:none;
+      z-index:0;
+    }
+    .badminton-deco .racket-head{
+      position:absolute;
+      width:90px;height:110px;
+      border-radius:50% 50% 48% 52%;
+      border:3px solid #f97316;
+      box-shadow:0 0 0 1px rgba(15,23,42,.25);
+    }
+    .badminton-deco .racket-handle{
+      position:absolute;
+      width:10px;height:68px;
+      background:linear-gradient(to bottom,#1f2937,#111827);
+      border-radius:999px;
+      left:38px;top:90px;
+    }
+    .badminton-deco .racket-handle::after{
+      content:"";
+      position:absolute;
+      inset:4px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.6);
+    }
+    .badminton-deco .shuttle{
+      position:absolute;
+      width:32px;height:32px;
+      border-radius:50%;
+      background:radial-gradient(circle at 30% 20%,#fff,rgba(248,250,252,0.2));
+      box-shadow:0 6px 14px rgba(15,23,42,.45);
+      left:82px;top:70px;
+    }
+    .badminton-deco .shuttle::after{
+      content:"";
+      position:absolute;
+      left:4px;right:4px;bottom:-6px;height:10px;
+      border-radius:999px;
+      background:linear-gradient(to right,#e5e7eb,#facc15,#f97316);
+    }
+
+    /* 羽球狀態列：2+1 混合 */
+    .badminton-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-bottom:14px;
+      margin-top:4px;
+      font-size:11px;
+    }
+    .badminton-tag{
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.6);
+      background:rgba(15,23,42,.04);
+      backdrop-filter:blur(10px);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      color:#0f172a;
+    }
+    .badminton-tag span.icon{font-size:13px;}
 
     /* copyright */
     .copyright{
@@ -181,39 +277,61 @@
 
   <div class="wrapper">
     <div class="card">
+      <!-- 羽球拍 + 羽毛球 裝飾 -->
+      <div class="badminton-deco">
+        <div class="racket-head"></div>
+        <div class="racket-handle"></div>
+        <div class="shuttle"></div>
+      </div>
+
       <div class="card-inner">
 
         <div class="chip">
           <div class="chip-dot"></div>
-          <span>Happy Birthday • 生日快樂</span>
+          <span>遲來的生日卡片</span>
         </div>
 
         <h1><span class="emphasis">Kevin</span>，生日快樂 🎉</h1>
 
-        <p class="age-text">🎂 Kevin 今天從 <strong>29 歲 → 30 歲</strong> 🎉</p>
+        <p class="age-text">🎂 Kevin 今天從 <strong>29 歲 → 30 歲</strong>，進入帥氣又優雅的 30 區！</p>
+
+        <!-- 羽球 2+1 狀態列 -->
+        <div class="badminton-tags">
+          <div class="badminton-tag">
+            <span class="icon">🏸</span><span>帥氣進攻 · Smash Mode ON</span>
+          </div>
+          <div class="badminton-tag">
+            <span class="icon">🌀</span><span>優雅走位 · Footwork Online</span>
+          </div>
+          <div class="badminton-tag">
+            <span class="icon">🎯</span><span>穩穩控場 · 2+1 完整體系</span>
+          </div>
+        </div>
 
         <p class="subtitle">
           Wishing you a year filled with good health, new adventures, and all the things that make you smile.
         </p>
 
         <p class="subtitle-zh">
-          30 歲的 Kevin
-          身體健康到可以打十場球不喊累
-          球技高到隊友開始懷疑你偷練
-          事業順到連老闆看到你都會微笑
-          每天開心到像被太陽充電
-
+          30 歲的 Kevin，<br>
+          身體健康到可以打十場球不喊累，<br>
+          球技高到隊友開始懷疑你偷練，<br>
+          事業順到連老闆看到你都會微笑，<br>
+          每天開心到像被太陽充電。<br><br>
+          球場上是帥氣進攻，生活中是優雅走位，<br>
+          2 + 1 混合：<strong>帥氣又優雅，還超穩。</strong>
         </p>
 
         <div class="divider"></div>
 
         <p class="wish">
-          願你：
-          吃不胖、睡得好
-          殺球更狠、平抽更快
-          薪水一路往上、壓力一路往下
-          人生像打羽球一樣——
-          越打越順，越順越囂張哈哈哈哈!!!!!🎂
+          願你：<br>
+          吃不胖、睡得好，<br>
+          殺球更狠、平抽更快，<br>
+          薪水一路往上、壓力一路往下。<br><br>
+          人生像打羽球一樣——<br>
+          先接發穩、再找節奏、最後一拍帥氣收尾。<br>
+          越打越順，越順越囂張哈哈哈哈！！！ 🎂🏸
         </p>
 
         <p class="sign">
@@ -233,7 +351,7 @@
     </div>
   </div>
 
-  <!-- 使用你上傳的生日快樂歌 -->
+  <!-- 使用你上傳的生日快樂歌（檔名 happy-birthday.mp3 放在同一資料夾） -->
   <audio id="birthdayAudio">
     <source src="happy-birthday.mp3" type="audio/mpeg" />
   </audio>
@@ -248,6 +366,7 @@
     const audioEl = document.getElementById('birthdayAudio');
 
     function playBirthdaySong(){
+      if(!audioEl) return;
       audioEl.currentTime = 0;
       audioEl.play().catch(()=>{});
     }
