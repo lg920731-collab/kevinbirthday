@@ -117,7 +117,6 @@
       overflow: hidden;
     }
 
-    /* 上方彩色條 */
     .card::before {
       content: "";
       position: absolute;
@@ -281,7 +280,6 @@
       }
     }
 
-    /* RWD */
     @media (max-width: 480px) {
       .card {
         padding: 22px 18px 18px;
@@ -337,8 +335,7 @@
 
         <p class="sign">
           From  
-          <span>your friend-Benjamin</span>
-          <!-- 可以改成：<span>Benjamin</span> 或其他名字 -->
+          <span>your friend&nbsp;– Benjamin</span>
         </p>
 
         <div class="actions">
@@ -354,23 +351,51 @@
     </div>
   </div>
 
-  <!-- 生日歌（請把 happy-birthday.mp3 放在同一資料夾，或改成自己的檔名） -->
-  <audio id="birthdayAudio">
-    <source src="happy-birthday.mp3" type="audio/mpeg" />
-    您的瀏覽器不支援 audio 標籤。
-  </audio>
+  <!-- 不再需要 mp3 檔，改用 Web Audio 播一小段生日旋律 -->
 
   <script>
-    // 點按按鈕：播放音樂 + 放煙花（confetti）
     const celebrateBtn = document.getElementById('celebrateBtn');
-    const audioEl = document.getElementById('birthdayAudio');
+    let audioCtx = null;
 
     function playBirthdaySong() {
-      if (!audioEl) return;
-      // 有些瀏覽器需要靠使用者互動才可以播放
-      audioEl.currentTime = 0;
-      audioEl.play().catch(() => {
-        console.log('Audio blocked by browser autoplay policy.');
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) {
+        console.log('此瀏覽器不支援 Web Audio');
+        return;
+      }
+
+      if (!audioCtx) {
+        audioCtx = new AudioContext();
+      }
+
+      const now = audioCtx.currentTime;
+      const tempo = 0.32; // 每個音長度（秒）
+
+      // 簡單「生日快樂」旋律（C 大調）
+      const notes = [
+        262, 262, 294, 262, 349, 330,   // happy birthday to you
+        262, 262, 294, 262, 392, 349,   // happy birthday to you
+        262, 262, 523, 440, 349, 330, 294, // happy birthday dear Kevin
+        466, 466, 440, 349, 392, 349    // happy birthday to you
+      ];
+
+      notes.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+
+        const t0 = now + i * tempo;
+        const t1 = t0 + tempo * 0.9;
+
+        gain.gain.setValueAtTime(0, t0);
+        gain.gain.linearRampToValueAtTime(0.4, t0 + 0.03);
+        gain.gain.linearRampToValueAtTime(0.0, t1);
+
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(t0);
+        osc.stop(t1 + 0.02);
       });
     }
 
